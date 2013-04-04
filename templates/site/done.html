@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>Done!</h1>
+<table>
+    <tr class="odd"><th>ID</th><td>{{user.id}}</td></tr>
+    <tr class="even"><th>ID</th><td>{{user.username}}</td></tr>
+    <tr class="odd"><th>ID</th><td>{{user.email|default:"Not Provided"}}</td></tr>
+    <tr class="even"><th>ID</th><td>{{user.first_name}}</td></tr>
+    <tr class="odd"><th>ID</th><td>{{user.last_name}}</td></tr>
+    <tr class="even"><th>ID</th><td>{{last_login}}</td></tr>
+{% endblock %}
