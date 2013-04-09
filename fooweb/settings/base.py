@@ -1,11 +1,9 @@
 import os 
-from local_settings import *
 
 # Django settings for djallauth project.
-PROJECT_ROOT = os.path.normpath(os.path.dirname(os.path.abspath(__file__)))
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
+PROJECT_ROOT = here("..")
+root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -16,17 +14,7 @@ DEFAULT_FROM_EMAIL = 'membership@foomatic.org'
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'fooweb',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
-    }
-}
+DATABASES = { 'default': dj-database-url.config()}
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -79,6 +67,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    root("..","assets"),
 )
 
 # List of finder classes that know how to find static files in
@@ -118,7 +107,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_ROOT,"..","templates"),
+    root("..","templates"),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -139,7 +128,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-INSTALLED_APPS = (
+DJANGO_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -150,6 +139,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+)
+
+THIRD_PARTY_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -157,8 +149,14 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.github',
     #'allauth.socialaccount.providers.facebook',
     #'allauth.socialaccount.providers.twitter',
+    'south',
+) 
+
+LOCAL_APPS = (
     'apps.members',
 )
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
