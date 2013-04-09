@@ -1,4 +1,5 @@
 import os 
+import dj_database_url
 
 # Django settings for djallauth project.
 here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
@@ -14,7 +15,9 @@ DEFAULT_FROM_EMAIL = 'membership@foomatic.org'
 
 MANAGERS = ADMINS
 
-DATABASES = { 'default': dj-database-url.config()}
+DATABASES = { 'default': dj_database_url.config()}
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARD_PROTO','https')
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
